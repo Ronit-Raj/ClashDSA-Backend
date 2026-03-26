@@ -1,19 +1,25 @@
 {
-  "dependencies": {
-    "dotenv": "^17.3.1",
-    "drizzle-orm": "^0.45.1",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "pg": "^8.20.0"
-  },
-  "devDependencies": {
-    "@types/pg": "^8.18.0",
-    "drizzle-kit": "^0.31.10",
-    "tsx": "^4.21.0"
-  },
-  "scripts": {
-    "db:push": "drizzle-kit push",
-    "db:generate": "drizzle-kit generate",
-    "db:studio": "drizzle-kit studio"
-  }
+    "type": "module",
+    "dependencies": {
+        "bcryptjs": "^3.0.3",
+        "better-sqlite3": "^12.8.0",
+        "dotenv": "^17.3.1",
+        "drizzle-orm": "^0.45.1",
+        "express": "^5.2.1",
+        "jsonwebtoken": "^9.0.3"
+    },
+    "devDependencies": {
+        "@types/better-sqlite3": "^7.6.13",
+        "@types/express": "^5.0.6",
+        "@types/jsonwebtoken": "^9.0.10",
+        "drizzle-kit": "^0.31.10",
+        "nodemon": "^3.1.14",
+        "tsx": "^4.21.0"
+    },
+    "scripts": {
+        "dev": "nodemon --watch src --ext ts --exec tsx src/index.ts",
+        "db:push": "drizzle-kit push",
+        "db:generate": "drizzle-kit generate",
+        "db:studio": "drizzle-kit studio"
+    }
 }

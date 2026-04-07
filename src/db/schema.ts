@@ -1,4 +1,9 @@
-import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
+import {
+    sqliteTable,
+    integer,
+    text,
+    primaryKey,
+} from "drizzle-orm/sqlite-core";
 
 export const contestTable = sqliteTable("contests", {
     contestId: text("contest_id").primaryKey(),
@@ -11,11 +16,17 @@ export const contestTable = sqliteTable("contests", {
     public: integer("public", { mode: "boolean" }),
 });
 
-export const participantsTable = sqliteTable("participants", {
-    participantId: text("participant_id").primaryKey(),
-    contestId: text("contest_id"),
-    performance: text("performance", { mode: "json" }),
-});
+export const participantsTable = sqliteTable(
+    "participants",
+    {
+        participantId: text("participant_id"),
+        contestId: text("contest_id"),
+        performance: text("performance", { mode: "json" }),
+    },
+    (table) => [
+        primaryKey({ columns: [table.participantId, table.contestId] }),
+    ],
+);
 
 export const usersTable = sqliteTable("users", {
     userId: text("user_id").primaryKey(),

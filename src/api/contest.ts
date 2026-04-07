@@ -1,5 +1,9 @@
 import express from "express";
-import { contestTable, problemsTable } from "../db/schema.ts";
+import {
+    contestTable,
+    participantsTable,
+    problemsTable,
+} from "../db/schema.ts";
 import { db } from "../index.ts";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
@@ -87,5 +91,52 @@ contestRouter.post("/create", requireSignIn, async (req, res) => {
     }
 });
 
+const enterContestSchema = z.object({
+    contestId: z.string().uuid(),
+});
+
+contestRouter.post("/enter", requireSignIn, async (req, res) => {
+    const result = enterContestSchema.safeParse(req.body);
+    if (!result.success) {
+        return res.status(400).json(result.error);
+    }
+
+    const { contestId } = result.data;
+    const participantId = (req.user as any).userId;
+
+    try {
+        // Verify the contest exists
+        const contest = await db
+            .select()
+            .from(contestTable)
+            .where(eq(contestTable.contestId, contestId))
+            .get();
+
+        if (!contest) {
+            return res.status(404).json({ message: "Contest not found" });
+        }
+
+        const inserted = await db
+            .insert(participantsTable)
+            .values({
+                participantId,
+                contestId,
+                performance: [],
+            })
+            .onConflictDoNothing();
+
+        if (inserted.changes === 0) {
+            return res.status(200).json({ message: "Already entered contest" });
+        }
+
+        res.status(201).json({
+            message: "Entered contest successfully",
+            contestId,
+        });
+    } catch (error) {
+        console.error("Error entering contest:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
 
 export default contestRouter;

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Reverse Linked List</title>
+    </head>
+    <body>
+        <h1>Reverse Linked List</h1>
+
+        <p>
+            You are given a singly linked list represented as a sequence of
+            <code>n</code> integers. Your task is to reverse the list and print
+            the node values in reversed order.
+        </p>
+
+        <p>
+            A singly linked list is a data structure where each node holds a
+            value and a pointer to the next node. Reversing it means the last
+            node becomes the first, and so on.
+        </p>
+
+        <h2>Input Format</h2>
+        <ul>
+            <li>
+                The first line contains a single integer <code>n</code> - the
+                number of nodes in the linked list.
+            </li>
+            <li>
+                The second line contains <code>n</code> space-separated integers
+                representing the values of the nodes from head to tail.
+            </li>
+        </ul>
+
+        <h2>Output Format</h2>
+        <p>
+            Print <code>n</code> space-separated integers representing the node
+            values of the reversed linked list, from the new head to the new
+            tail.
+        </p>
+        <p>
+            If the list is empty (<code>n = 0</code>), print an empty line.
+        </p>
+
+        <h2>Constraints</h2>
+        <ul>
+            <li><code>0 &lt;= n &lt;= 10^4</code></li>
+            <li><code>-10^5 &lt;= node value &lt;= 10^5</code></li>
+            <li>Time limit: 1 second</li>
+        </ul>
+
+        <h2>Example 1</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+5
+1 2 3 4 5</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>5 4 3 2 1</pre>
+
+        <h2>Example 2</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+1
+42</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>42</pre>
+
+        <h2>Example 3</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+4
+-3 0 7 -1</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>-1 7 0 -3</pre>
+
+        <h2>Notes</h2>
+        <ul>
+            <li>
+                The reversal must be done on the linked list structure itself,
+                not simply by printing the array backwards, though the observable
+                output is the same.
+            </li>
+            <li>
+                A recursive approach traverses to the end of the list and links
+                nodes in reverse on the way back up the call stack.
+            </li>
+            <li>
+                An iterative approach uses three pointers
+                (<code>prev</code>, <code>curr</code>, <code>next</code>) to
+                reverse each link in a single pass, achieving
+                <code>O(n)</code> time and <code>O(1)</code> extra space.
+            </li>
+        </ul>
+    </body>
+</html>

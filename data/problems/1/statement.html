@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Two Sum</title>
+    </head>
+    <body>
+        <h1>Two Sum</h1>
+
+        <p>
+            You are given an array of integers <code>nums</code> and an integer
+            <code>target</code>. Find two distinct indices <code>i</code> and
+            <code>j</code> such that:
+        </p>
+
+        <p><code>nums[i] + nums[j] = target</code></p>
+
+        <p>
+            Return the indices in increasing order (smaller index first). It is
+            guaranteed that exactly one valid pair exists.
+        </p>
+
+        <h2>Input Format</h2>
+        <ul>
+            <li>
+                The first line contains an integer <code>n</code> - size of the
+                array.
+            </li>
+            <li>
+                The second line contains <code>n</code> space-separated integers
+                <code>nums[i]</code>.
+            </li>
+            <li>The third line contains an integer <code>target</code>.</li>
+        </ul>
+
+        <h2>Output Format</h2>
+        <p>
+            Print two space-separated integers: the indices of the two numbers
+            whose sum equals
+            <code>target</code>, in increasing order.
+        </p>
+
+        <h2>Constraints</h2>
+        <ul>
+            <li><code>2 &lt;= n &lt;= 200000</code></li>
+            <li><code>-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
+            <li><code>-10^9 &lt;= target &lt;= 10^9</code></li>
+            <li>Exactly one solution exists.</li>
+        </ul>
+
+        <h2>Example 1</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+4
+2 7 11 15
+9</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>0 1</pre>
+
+        <h2>Example 2</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+3
+3 2 4
+6</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>1 2</pre>
+
+        <h2>Example 3</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+2
+3 3
+6</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>0 1</pre>
+
+        <h2>Notes</h2>
+        <ul>
+            <li>You must use two different indices.</li>
+            <li>
+                Any approach with overall <code>O(n)</code> or
+                <code>O(n log n)</code> time is acceptable.
+            </li>
+        </ul>
+    </body>
+</html>

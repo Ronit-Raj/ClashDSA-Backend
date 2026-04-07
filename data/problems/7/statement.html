@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Number of Islands</title>
+    </head>
+    <body>
+        <h1>Number of Islands</h1>
+
+        <p>
+            You are given an <code>m x n</code> grid consisting of characters
+            <code>'1'</code> (land) and <code>'0'</code> (water). Count the
+            number of islands in the grid.
+        </p>
+
+        <p>
+            An island is a maximal group of land cells connected horizontally or
+            vertically. You may assume all four edges of the grid are surrounded
+            by water.
+        </p>
+
+        <h2>Input Format</h2>
+        <ul>
+            <li>
+                The first line contains two integers <code>m</code> and
+                <code>n</code> - the number of rows and columns of the grid.
+            </li>
+            <li>
+                Each of the next <code>m</code> lines contains <code>n</code>
+                space-separated characters, each being either <code>'0'</code>
+                or <code>'1'</code>.
+            </li>
+        </ul>
+
+        <h2>Output Format</h2>
+        <p>Print a single integer: the number of islands in the grid.</p>
+
+        <h2>Constraints</h2>
+        <ul>
+            <li><code>1 &lt;= m, n &lt;= 300</code></li>
+            <li>
+                Each cell in the grid is either <code>'0'</code> or
+                <code>'1'</code>.
+            </li>
+            <li>Time limit: 2 seconds.</li>
+        </ul>
+
+        <h2>Example 1</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+4 5
+1 1 1 1 0
+1 1 0 1 0
+1 1 0 0 0
+0 0 0 0 0</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>1</pre>
+
+        <h2>Example 2</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+4 5
+1 1 0 0 0
+1 1 0 0 0
+0 0 1 0 0
+0 0 0 1 1</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>3</pre>
+
+        <h2>Example 3</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+3 4
+1 0 0 1
+0 0 0 0
+1 0 0 1</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>4</pre>
+
+        <h2>Explanation</h2>
+        <p>
+            In Example 1, all the land cells are connected to each other through
+            horizontal or vertical adjacency, forming a single island.
+        </p>
+        <p>
+            In Example 2, there are three separate groups of land cells, none of
+            which are adjacent to each other, yielding three distinct islands.
+        </p>
+
+        <h2>Notes</h2>
+        <ul>
+            <li>
+                Both BFS and DFS traversals are valid strategies. Starting from
+                any unvisited land cell, flood-fill all reachable land cells to
+                mark the entire island as visited, then increment the count.
+            </li>
+            <li>
+                A standard BFS/DFS solution runs in <code>O(m * n)</code> time
+                and <code>O(m * n)</code> space in the worst case.
+            </li>
+            <li>
+                Diagonal cells are not considered adjacent; only cells sharing
+                an edge count as neighbors.
+            </li>
+        </ul>
+    </body>
+</html>

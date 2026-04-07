@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Valid Parentheses</title>
+    </head>
+    <body>
+        <h1>Valid Parentheses</h1>
+
+        <p>
+            Given a string <code>s</code> containing only the characters
+            <code>'('</code>, <code>')'</code>, <code>'{'</code>,
+            <code>'}'</code>, <code>'['</code>, and <code>']'</code>, determine
+            whether the string is valid.
+        </p>
+
+        <p>A string is considered valid if all of the following hold:</p>
+
+        <ul>
+            <li>Every opening bracket has a corresponding closing bracket.</li>
+            <li>Every closing bracket closes the most recently opened bracket of the same type.</li>
+            <li>Brackets are closed in the correct order.</li>
+        </ul>
+
+        <h2>Input Format</h2>
+        <ul>
+            <li>
+                A single line containing the string <code>s</code>, consisting
+                only of bracket characters.
+            </li>
+        </ul>
+
+        <h2>Output Format</h2>
+        <p>
+            Print <code>YES</code> if the string is valid, or <code>NO</code>
+            otherwise.
+        </p>
+
+        <h2>Constraints</h2>
+        <ul>
+            <li><code>1 &lt;= |s| &lt;= 10^4</code></li>
+            <li>
+                <code>s</code> consists only of the characters
+                <code>'('</code>, <code>')'</code>, <code>'{'</code>,
+                <code>'}'</code>, <code>'['</code>, <code>']'</code>.
+            </li>
+            <li>Time limit: 1 second.</li>
+        </ul>
+
+        <h2>Example 1</h2>
+        <p><strong>Input</strong></p>
+        <pre>()[]{}</pre>
+
+        <p><strong>Output</strong></p>
+        <pre>YES</pre>
+
+        <h2>Example 2</h2>
+        <p><strong>Input</strong></p>
+        <pre>([{}])</pre>
+
+        <p><strong>Output</strong></p>
+        <pre>YES</pre>
+
+        <h2>Example 3</h2>
+        <p><strong>Input</strong></p>
+        <pre>(]</pre>
+
+        <p><strong>Output</strong></p>
+        <pre>NO</pre>
+
+        <h2>Example 4</h2>
+        <p><strong>Input</strong></p>
+        <pre>([)]</pre>
+
+        <p><strong>Output</strong></p>
+        <pre>NO</pre>
+
+        <h2>Notes</h2>
+        <ul>
+            <li>
+                A stack-based approach is the standard solution: push every
+                opening bracket onto the stack and pop when a matching closing
+                bracket is encountered.
+            </li>
+            <li>
+                If at any point the stack is empty when a closing bracket is
+                seen, or the top of the stack does not match, the string is
+                invalid.
+            </li>
+            <li>
+                After processing all characters, the string is valid only if the
+                stack is empty.
+            </li>
+        </ul>
+    </body>
+</html>

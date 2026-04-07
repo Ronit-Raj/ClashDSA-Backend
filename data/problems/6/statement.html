@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Longest Substring Without Repeating Characters</title>
+    </head>
+    <body>
+        <h1>Longest Substring Without Repeating Characters</h1>
+
+        <p>
+            Given a string <code>s</code>, find the length of the longest
+            substring that contains no repeating characters.
+        </p>
+
+        <p>
+            A substring is a contiguous sequence of characters within the
+            string. Every character in the substring must appear exactly once.
+        </p>
+
+        <h2>Input Format</h2>
+        <ul>
+            <li>
+                A single line containing the string <code>s</code>. The string
+                may contain any printable ASCII characters including spaces.
+            </li>
+            <li>
+                If the string is empty, the input line will be blank.
+            </li>
+        </ul>
+
+        <h2>Output Format</h2>
+        <p>
+            Print a single integer: the length of the longest substring of
+            <code>s</code> that has no repeating characters.
+        </p>
+
+        <h2>Constraints</h2>
+        <ul>
+            <li><code>0 &lt;= |s| &lt;= 10^5</code></li>
+            <li><code>s</code> consists of printable ASCII characters.</li>
+            <li>Time limit: 2 seconds.</li>
+        </ul>
+
+        <h2>Example 1</h2>
+        <p><strong>Input</strong></p>
+        <pre>abcabcbb</pre>
+
+        <p><strong>Output</strong></p>
+        <pre>3</pre>
+
+        <h2>Example 2</h2>
+        <p><strong>Input</strong></p>
+        <pre>bbbbb</pre>
+
+        <p><strong>Output</strong></p>
+        <pre>1</pre>
+
+        <h2>Example 3</h2>
+        <p><strong>Input</strong></p>
+        <pre>pwwkew</pre>
+
+        <p><strong>Output</strong></p>
+        <pre>3</pre>
+
+        <h2>Explanation</h2>
+        <p>
+            In Example 1, the longest substring without repeating characters is
+            <code>abc</code>, which has length <code>3</code>. The substring
+            starting at index 3 also yields <code>abc</code>, but no longer
+            window is possible.
+        </p>
+        <p>
+            In Example 2, every character is <code>b</code>, so the best we can
+            do is a window of size <code>1</code>.
+        </p>
+        <p>
+            In Example 3, the answer is <code>wke</code> (length
+            <code>3</code>). Note that <code>kew</code> is also of length
+            <code>3</code>; either would be a valid witness, but only the length
+            is required.
+        </p>
+
+        <h2>Notes</h2>
+        <ul>
+            <li>
+                A sliding window approach with a hash set or a frequency array
+                over ASCII codes solves this in <code>O(|s|)</code> time and
+                <code>O(1)</code> space (bounded by the alphabet size).
+            </li>
+            <li>
+                Maintain two pointers <code>left</code> and <code>right</code>
+                that define the current window. Advance <code>right</code> one
+                character at a time; when a duplicate is detected, advance
+                <code>left</code> until the duplicate is removed from the
+                window.
+            </li>
+            <li>
+                If <code>|s| = 0</code>, the answer is <code>0</code>.
+            </li>
+        </ul>
+    </body>
+</html>

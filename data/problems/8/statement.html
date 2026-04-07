@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Coin Change</title>
+    </head>
+    <body>
+        <h1>Coin Change</h1>
+
+        <p>
+            You are given an array of <code>n</code> coin denominations and a
+            target integer <code>amount</code>. Find the minimum number of coins
+            needed to make up exactly <code>amount</code>. You may use each coin
+            denomination an unlimited number of times.
+        </p>
+
+        <p>
+            If it is impossible to make up the target amount using the given
+            coins, return <code>-1</code>.
+        </p>
+
+        <h2>Input Format</h2>
+        <ul>
+            <li>
+                The first line contains an integer <code>n</code> — the number
+                of coin denominations.
+            </li>
+            <li>
+                The second line contains <code>n</code> space-separated integers
+                representing the coin denominations.
+            </li>
+            <li>
+                The third line contains a single integer <code>amount</code> —
+                the target amount.
+            </li>
+        </ul>
+
+        <h2>Output Format</h2>
+        <p>
+            Print a single integer: the minimum number of coins required to make
+            up <code>amount</code>, or <code>-1</code> if it is not possible.
+        </p>
+
+        <h2>Constraints</h2>
+        <ul>
+            <li><code>1 &lt;= n &lt;= 12</code></li>
+            <li><code>1 &lt;= coins[i] &lt;= 2^31 - 1</code></li>
+            <li><code>0 &lt;= amount &lt;= 10^4</code></li>
+            <li>Time limit: 2 seconds</li>
+        </ul>
+
+        <h2>Example 1</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+3
+1 2 5
+11</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>3</pre>
+
+        <h2>Example 2</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+1
+2
+3</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>-1</pre>
+
+        <h2>Example 3</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+1
+1
+0</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>0</pre>
+
+        <h2>Explanation</h2>
+        <p>
+            In Example 1, the amount <code>11</code> can be made up as
+            <code>5 + 5 + 1</code>, using 3 coins. No combination uses fewer
+            coins.
+        </p>
+        <p>
+            In Example 2, no combination of the single coin denomination
+            <code>2</code> can produce the odd target <code>3</code>, so the
+            answer is <code>-1</code>.
+        </p>
+        <p>
+            In Example 3, the target is <code>0</code>, which requires zero
+            coins regardless of the available denominations.
+        </p>
+
+        <h2>Notes</h2>
+        <ul>
+            <li>
+                A standard bottom-up dynamic programming solution runs in
+                <code>O(n * amount)</code> time and <code>O(amount)</code>
+                space.
+            </li>
+            <li>
+                Because coin values can be very large, coins greater than
+                <code>amount</code> can be safely ignored.
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Longest Common Subsequence</title>
+  </head>
+  <body>
+    <h1>Longest Common Subsequence</h1>
+
+    <p>
+      Given two strings <code>s</code> and <code>t</code>, find the length of their
+      longest common subsequence (LCS).
+    </p>
+
+    <p>
+      A subsequence of a string is formed by deleting zero or more characters
+      without changing the relative order of the remaining characters.
+    </p>
+
+    <h2>Input Format</h2>
+    <ul>
+      <li>The first line contains string <code>s</code>.</li>
+      <li>The second line contains string <code>t</code>.</li>
+    </ul>
+
+    <h2>Output Format</h2>
+    <p>Print a single integer: the length of the longest common subsequence.</p>
+
+    <h2>Constraints</h2>
+    <ul>
+      <li><code>1 &lt;= |s|, |t| &lt;= 3000</code></li>
+      <li>Both strings contain lowercase English letters.</li>
+    </ul>
+
+    <h2>Example 1</h2>
+    <p><strong>Input</strong></p>
+    <pre>abcde
+ace</pre>
+
+    <p><strong>Output</strong></p>
+    <pre>3</pre>
+
+    <h2>Example 2</h2>
+    <p><strong>Input</strong></p>
+    <pre>abc
+abc</pre>
+
+    <p><strong>Output</strong></p>
+    <pre>3</pre>
+
+    <h2>Example 3</h2>
+    <p><strong>Input</strong></p>
+    <pre>abc
+def</pre>
+
+    <p><strong>Output</strong></p>
+    <pre>0</pre>
+
+    <h2>Explanation</h2>
+    <p>
+      In Example 1, one longest common subsequence is <code>ace</code>, so the
+      answer is <code>3</code>.
+    </p>
+
+    <h2>Notes</h2>
+    <ul>
+      <li>
+        A standard dynamic programming solution runs in
+        <code>O(|s| * |t|)</code> time.
+      </li>
+    </ul>
+  </body>
+</html>

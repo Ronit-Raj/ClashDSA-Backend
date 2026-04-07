@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Word Break II</title>
+    </head>
+    <body>
+        <h1>Word Break II</h1>
+
+        <p>
+            You are given a string <code>s</code> and a dictionary of strings
+            <code>wordDict</code>. Insert spaces into <code>s</code> to
+            construct all possible sentences such that every word in the
+            sentence is a valid entry in <code>wordDict</code>. Return all
+            such sentences in any order.
+        </p>
+
+        <p>
+            The same dictionary word may be reused multiple times in a single
+            sentence. Every character in <code>s</code> must be consumed — no
+            characters may be skipped or left over.
+        </p>
+
+        <h2>Input Format</h2>
+        <ul>
+            <li>
+                The first line contains the string <code>s</code>.
+            </li>
+            <li>
+                The second line contains a single integer <code>n</code> — the
+                number of words in the dictionary.
+            </li>
+            <li>
+                Each of the next <code>n</code> lines contains one dictionary
+                word.
+            </li>
+        </ul>
+
+        <h2>Output Format</h2>
+        <p>
+            Print all valid sentences, one per line, in any order. Each
+            sentence must consist of words separated by single spaces, with no
+            leading or trailing spaces.
+        </p>
+        <p>
+            If no valid segmentation exists, print nothing (empty output).
+        </p>
+
+        <h2>Constraints</h2>
+        <ul>
+            <li><code>1 &lt;= |s| &lt;= 20</code></li>
+            <li><code>1 &lt;= |word| &lt;= 10</code> for each word in <code>wordDict</code></li>
+            <li><code>1 &lt;= wordDict.length &lt;= 1000</code></li>
+            <li>
+                All characters in <code>s</code> and in each dictionary word
+                are lowercase English letters.
+            </li>
+            <li>All words in <code>wordDict</code> are distinct.</li>
+            <li>Time limit: 3 seconds</li>
+        </ul>
+
+        <h2>Example 1</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+catsanddog
+5
+cat
+cats
+and
+sand
+dog</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>
+cats and dog
+cat sand dog</pre
+        >
+
+        <h2>Example 2</h2>
+        <p><strong>Input</strong></p>
+        <pre>
+pineapplepenapple
+5
+apple
+pen
+applepen
+pine
+pineapple</pre
+        >
+
+        <p><strong>Output</strong></p>
+        <pre>
+pine apple pen apple
+pineapple pen apple
+pine applepen apple</pre
+        >
+
+        <h2>Notes</h2>
+        <ul>
+            <li>
+                The output order does not matter — any permutation of valid
+                sentences is accepted.
+            </li>
+            <li>
+                A word from <code>wordDict</code> may be used more than once
+                when constructing a sentence, as long as it appears in the
+                dictionary.
+            </li>
+            <li>
+                Recommended approach: use backtracking with memoization. For
+                each starting position in <code>s</code>, try every dictionary
+                word as a prefix and recurse on the remaining suffix. Cache
+                results per suffix to avoid redundant work.
+            </li>
+            <li>
+                Because <code>|s| &lt;= 20</code>, even an unoptimized
+                backtracking solution will fit within the time limit, but
+                memoization is strongly encouraged to handle worst-case inputs
+                with many overlapping subproblems.
+            </li>
+        </ul>
+    </body>
+</html>

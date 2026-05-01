@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import usersRouter from "./api/users";
 import contestRouter from "./api/contest";
+import hookRouter from "./api/hook.ts"
 import cookieParser from "cookie-parser";
 
 const sqlite = new Database(process.env.DATABASE_URL ?? "sqlite.db");
@@ -17,6 +18,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.json());
 app.use(cookieParser())
+app.use("/v1/api/", hookRouter);
 app.use("/v1/api/users", usersRouter);
 app.use("/v1/api/contest", contestRouter);
 app.use(express.static(path.join(__dirname, "..", "data", "problems")));

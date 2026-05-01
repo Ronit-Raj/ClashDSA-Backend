@@ -1,7 +1,8 @@
 # Clash-DSA-backend
 
 This is the backend for a platform that allows users to create coding 
-contest and compete with others. 
+contest and compete with others. The main development is being done on a 
+remote machine. 
 
 ## Types of contests 
 1. Random: 
@@ -27,3 +28,7 @@ problem table
 - id:number
 - tags:json array 
 - difficulty:number(out of 3. To signify easy medium hard)
+
+## Sandboxing
+The project uses Judge0 for code sandboxing. This server and judge0 both are working on the same machine.
+We will use the Judge0 webhooks to notify this server when judge0 has finished executing. 

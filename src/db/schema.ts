@@ -35,6 +35,21 @@ export const usersTable = sqliteTable("users", {
     password: text("password").notNull(),
 });
 
+export const submissionsTable = sqliteTable("submissions", {
+    submissionId: text("submission_id").primaryKey(),
+    contestId: text("contest_id").notNull(),
+    problemId: integer("problem_id").notNull(),
+    participantId: text("participant_id").notNull(),
+    // Array of Judge0 tokens, one per test case
+    tokens: text("tokens", { mode: "json" }).$type<string[]>().notNull(),
+    // Parallel array to tokens — null means Judge0 hasn't called back yet
+    results: text("results", { mode: "json" })
+        .$type<(Record<string, unknown> | null)[]>()
+        .notNull(),
+    verdict: text("verdict").notNull().default("pending"),
+    submittedAt: integer("submitted_at", { mode: "timestamp" }).notNull(),
+});
+
 export const problemsTable = sqliteTable("problems", {
     problemId: integer("problem_id").primaryKey(),
     title: text("title").notNull(),

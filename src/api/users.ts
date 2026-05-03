@@ -6,6 +6,8 @@ import { db } from "../index.ts";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import requireSignIn from "../middlewares/requireSignIn.ts";
+import type { JwtPayload } from "jsonwebtoken";
 
 const usersRouter = express.Router();
 
@@ -82,6 +84,26 @@ usersRouter.post("/sign-in", async (req, res) => {
     );
     res.cookie("token", token, { httpOnly: true, secure: true });
     res.status(200).json({ message: "User signed in successfully" });
+});
+
+usersRouter.get("/me", requireSignIn, async (req, res) => {
+    const userId = (req.user as JwtPayload).userId as string;
+
+    const user = await db
+        .select({
+            userId: usersTable.userId,
+            username: usersTable.username,
+            email: usersTable.email,
+        })
+        .from(usersTable)
+        .where(eq(usersTable.userId, userId))
+        .get();
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json(user);
 });
 
 export default usersRouter;

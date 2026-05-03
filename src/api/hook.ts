@@ -10,7 +10,6 @@ const ACCEPTED_STATUS_ID = 3;
 
 hookRouter.put("/submissionHook", async (req, res) => {
     // Acknowledge immediately so Judge0 doesn't retry
-    console.log("[Hook] Received webhook payload");
     res.sendStatus(200);
 
     const payload = req.body as {

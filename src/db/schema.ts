@@ -1,62 +1,62 @@
-import {
-    sqliteTable,
-    integer,
-    text,
-    primaryKey,
-} from "drizzle-orm/sqlite-core";
+import { 
+    pgTable, text, integer, timestamp, boolean, jsonb, primaryKey, pgEnum 
+} from "drizzle-orm/pg-core";
 
-export const contestTable = sqliteTable("contests", {
+// 1. Define Enums (Postgres native feature)
+export const difficultyEnum = pgEnum("difficulty", ["easy", "medium", "hard"]);
+
+// 2. Contests Table
+export const contestTable = pgTable("contests", {
     contestId: text("contest_id").primaryKey(),
     contestDuration: integer("contest_duration"),
-    startTime: integer("start_time", { mode: "timestamp" }),
+    // Using withTimezone: true ensures absolute consistency between India and East Asia
+    startTime: timestamp("start_time", { withTimezone: true }), 
     title: text("title"),
-    problems: text("problems", { mode: "json" }), // [integer ids]
+    problems: jsonb("problems").$type<number[]>(), // Stored as native JSONB
     creatorId: text("creator_id"),
-    random: integer("random", { mode: "boolean" }),
-    public: integer("public", { mode: "boolean" }),
+    random: boolean("random").default(false),
+    public: boolean("public").default(true),
 });
 
-export const participantsTable = sqliteTable(
-    "participants",
-    {
-        participantId: text("participant_id"),
-        contestId: text("contest_id"),
-        performance: text("performance", { mode: "json" }),
-    },
-    (table) => [
-        primaryKey({ columns: [table.participantId, table.contestId] }),
-    ],
-);
-
-export const usersTable = sqliteTable("users", {
+// 3. Users Table
+export const usersTable = pgTable("users", {
     userId: text("user_id").primaryKey(),
     username: text("username").notNull(),
     email: text("email").unique().notNull(),
     password: text("password").notNull(),
 });
 
-export const submissionsTable = sqliteTable("submissions", {
+// 4. Participants Table
+export const participantsTable = pgTable(
+    "participants",
+    {
+        participantId: text("participant_id"),
+        contestId: text("contest_id"),
+        performance: jsonb("performance").$type<Record<number, string>[]>(), 
+    },
+    (table) => ({
+        pk: primaryKey({ columns: [table.participantId, table.contestId] }),
+    }),
+);
+
+// 5. Submissions Table
+export const submissionsTable = pgTable("submissions", {
     submissionId: text("submission_id").primaryKey(),
     contestId: text("contest_id").notNull(),
     problemId: integer("problem_id").notNull(),
     participantId: text("participant_id").notNull(),
-    // Array of Judge0 tokens, one per test case
-    tokens: text("tokens", { mode: "json" }).$type<string[]>().notNull(),
-    // Parallel array to tokens — null means Judge0 hasn't called back yet
-    results: text("results", { mode: "json" })
-        .$type<(Record<string, unknown> | null)[]>()
-        .notNull(),
+    tokens: jsonb("tokens").$type<string[]>().notNull(),
+    results: jsonb("results").$type<(Record<string, unknown> | null)[]>().notNull(),
     verdict: text("verdict").notNull().default("pending"),
-    submittedAt: integer("submitted_at", { mode: "timestamp" }).notNull(),
+    submittedAt: timestamp("submitted_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
-export const problemsTable = sqliteTable("problems", {
+// 6. Problems Table
+export const problemsTable = pgTable("problems", {
     problemId: integer("problem_id").primaryKey(),
     title: text("title").notNull(),
-    difficulty: text("difficulty", {
-        enum: ["easy", "medium", "hard"],
-    }).notNull(),
-    topics: text("topics", { mode: "json" }).$type<string[]>().notNull(),
+    difficulty: difficultyEnum("difficulty").notNull(),
+    topics: jsonb("topics").$type<string[]>().notNull(),
     timeLimit: integer("time_limit").notNull().default(2),
     memoryLimit: integer("memory_limit").notNull().default(256),
 });

@@ -63,9 +63,9 @@ usersRouter.post("/sign-in", async (req, res) => {
     const { email, password } = result.data;
 
     const users = await db
-        .select()
-        .from(usersTable)
-        .where(eq(usersTable.email, email));
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.email, result.data.email));
     if (users.length === 0) {
         return res.status(401).json({ message: "Invalid credentials" });
     }
@@ -82,7 +82,7 @@ usersRouter.post("/sign-in", async (req, res) => {
         { userId: users[0].userId },
         process.env.JWT_SECRET as string,
     );
-    res.cookie("token", token, { httpOnly: true, secure: true });
+    res.cookie("token", token, { httpOnly: true, secure: false });
     res.status(200).json({ message: "User signed in successfully" });
 });
 
@@ -97,13 +97,13 @@ usersRouter.get("/me", requireSignIn, async (req, res) => {
         })
         .from(usersTable)
         .where(eq(usersTable.userId, userId))
-        .get();
-
+        .limit(1)
+      
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
 
-    return res.status(200).json(user);
+    return res.status(200).json(user[0]);
 });
 
 export default usersRouter;

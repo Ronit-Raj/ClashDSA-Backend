@@ -1,6 +1,5 @@
 import "dotenv/config";
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import Database from "better-sqlite3";
+import { drizzle } from "drizzle-orm/node-postgres";
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -10,8 +9,10 @@ import usersRouter from "./api/users";
 import contestRouter from "./api/contest";
 import hookRouter from "./api/hook.ts";
 
-const sqlite = new Database(process.env.DATABASE_URL ?? "sqlite.db");
-export const db = drizzle(sqlite);
+export const db = drizzle(process.env.DATABASE_URL!);
+if (!db) {
+    console.log("Failed to connect to database")
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

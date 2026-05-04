@@ -100,10 +100,11 @@ contestRouter.post("/create", requireSignIn, async (req, res) => {
                 random: true,
                 public: isPublic,
             })
-            .onConflictDoNothing();
+            .onConflictDoNothing()
+            .returning({ insertedContestID: contestTable.contestId });
 
         // If nothing was inserted, a contest with this ID already exists
-        if (inserted.changes === 0) {
+        if (inserted.length === 0) {
             return res.status(200).json({
                 message: "Contest already exists",
             });
@@ -168,9 +169,10 @@ contestRouter.post("/enter", requireSignIn, async (req, res) => {
                 contestId,
                 performance: [],
             })
-            .onConflictDoNothing();
+            .onConflictDoNothing()
+            .returning({ insertedParticipantID: participantsTable.participantId });
 
-        if (inserted.changes === 0) {
+        if (inserted.length === 0) {
             return res.status(200).json({ message: "Already entered contest" });
         }
 
@@ -206,13 +208,13 @@ contestRouter.post("/submit", requireSignIn, async (req, res) => {
             .select()
             .from(problemsTable)
             .where(eq(problemsTable.problemId, problemId))
-            .get();
+            .limit(1)
 
         if (!problemDetails) {
             return res.status(404).json({ message: "Problem not found" });
         }
 
-        let { timeLimit, memoryLimit } = problemDetails;
+        let { timeLimit, memoryLimit } = problemDetails[0];
         memoryLimit *= 1024; //db stores memory limit in MB
 
         // Discover all test case files for this problem, e.g. "1_1.txt", "1_2.txt"

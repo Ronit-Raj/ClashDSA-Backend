@@ -96,7 +96,8 @@ contestRouter.post("/create", requireSignIn, async (req, res) => {
                 contestDuration: duration,
                 startTime: new Date(startTime),
                 creatorId: (req.user as any).userId,
-                problems: selectedProblemsIds,
+                creatorUsername: (req.user as any).username,
+                problems: selectedProblemsIds,                
                 random: true,
                 public: isPublic,
             })

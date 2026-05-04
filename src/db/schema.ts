@@ -14,6 +14,7 @@ export const contestTable = pgTable("contests", {
     title: text("title"),
     problems: jsonb("problems").$type<number[]>(), // Stored as native JSONB
     creatorId: text("creator_id"),
+    creatorUsername: text("creator_username"),
     random: boolean("random").default(false),
     public: boolean("public").default(true),
 });

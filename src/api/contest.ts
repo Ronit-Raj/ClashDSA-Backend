@@ -42,7 +42,7 @@ const createContestSchema = z.object({
     contestId: z.string().uuid(),
     title: z.string().min(3).max(100),
     duration: z.number().min(1), // duration in minutes
-    startTime: z.string().datetime(),
+    startTime: z.string().datetime({offset: true}),
     noOfProblems: z.number().min(1).max(10),
     public: z.boolean(),
 });
@@ -52,7 +52,6 @@ contestRouter.post("/create", requireSignIn, async (req, res) => {
     if (!result.success) {
         return res.status(400).json(result.error);
     }
-
     const {
         contestId,
         title,
@@ -61,7 +60,11 @@ contestRouter.post("/create", requireSignIn, async (req, res) => {
         noOfProblems,
         public: isPublic,
     } = result.data;
-
+    if(new Date(startTime) < new Date()) {
+        return res.status(400).json({
+            message: "Start time must be in the future",
+        });
+    }
     try {
         // Fetch all problems from the database
         const allProblems = await db.select().from(problemsTable);
@@ -135,12 +138,29 @@ contestRouter.post("/enter", requireSignIn, async (req, res) => {
             .select()
             .from(contestTable)
             .where(eq(contestTable.contestId, contestId))
-            .get();
 
-        if (!contest) {
+        if (!contest[0]) {
             return res.status(404).json({ message: "Contest not found" });
         }
 
+        const startTime = contest[0].startTime;
+        if (!startTime) {
+            // this will never happen, but just in case
+            return res.status(400).json({
+                message: "Contest has not started yet",
+            });
+        }
+        if (startTime > new Date()) {
+            return res.status(400).json({
+                message: "Contest has not started yet",
+            });
+        }
+        const durationMs = contest[0].contestDuration! * 60_000;
+        const endMs = startTime.getTime() + durationMs;
+        if (endMs < Date.now()) {
+          return res.status(400).json({ message: "Contest has ended" });
+        }
+        
         const inserted = await db
             .insert(participantsTable)
             .values({

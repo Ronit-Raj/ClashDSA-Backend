@@ -35,9 +35,9 @@ export const participantsTable = pgTable(
         contestId: text("contest_id"),
         performance: jsonb("performance").$type<Record<number, string>[]>(), 
     },
-    (table) => ({
-        pk: primaryKey({ columns: [table.participantId, table.contestId] }),
-    }),
+    (table) => [
+        primaryKey({ columns: [table.participantId, table.contestId] }),
+    ]
 );
 
 // 5. Submissions Table

@@ -51,10 +51,13 @@ const options = {
         credentials: true,
     },
 }
-const io = new Server(server, options)
-// io.on("connection", (socket) => {
-//     console.log("web socket connected");
-// });
+export const io = new Server(server, options)
+io.on("connection", (socket) => {
+    socket.on("joinRoom", (submissionId) => {
+      // console.log(`Socket ${socket.id} joined room ${submissionId}`);
+      socket.join(submissionId);
+    });
+});
 server.listen(process.env.PORT ?? 3000, () => {
     console.log(
         `Server running on port ${process.env.PORT ?? 3000} — CORS origin: ${FRONTEND_ORIGIN}`,

@@ -38,6 +38,19 @@ contestRouter.get("/getPublicContests", async (req, res) => {
     res.json(publicContests);
 });
 
+contestRouter.get("/:contestId", async (req, res) => {
+    const { contestId } = req.params;
+    const contest = await db
+        .select()
+        .from(contestTable)
+        .where(eq(contestTable.contestId, contestId));
+    if (contest.length === 0) {
+        return res.status(404).json({ message: "Contest not found" });
+    }
+    res.json(contest[0]);
+});
+
+
 const createContestSchema = z.object({
     contestId: z.string().uuid(),
     title: z.string().min(3).max(100),

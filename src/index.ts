@@ -8,6 +8,8 @@ import cookieParser from "cookie-parser";
 import usersRouter from "./api/users";
 import contestRouter from "./api/contest";
 import hookRouter from "./api/hook.ts";
+import { Server } from "socket.io"
+import http from "http";
 
 export const db = drizzle(process.env.DATABASE_URL!);
 if (!db) {
@@ -41,7 +43,19 @@ app.use("/v1/api/users", usersRouter);
 app.use("/v1/api/contest", contestRouter);
 app.use(express.static(path.join(__dirname, "..", "data", "problems")));
 
-app.listen(process.env.PORT ?? 3000, () => {
+const server = http.createServer(app);
+const options = {
+    cors: {
+        origin: FRONTEND_ORIGIN,
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        credentials: true,
+    },
+}
+const io = new Server(server, options)
+// io.on("connection", (socket) => {
+//     console.log("web socket connected");
+// });
+server.listen(process.env.PORT ?? 3000, () => {
     console.log(
         `Server running on port ${process.env.PORT ?? 3000} — CORS origin: ${FRONTEND_ORIGIN}`,
     );

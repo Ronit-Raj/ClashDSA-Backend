@@ -4,14 +4,14 @@ import {
     participantsTable,
     problemsTable,
     submissionsTable,
-} from "../db/schema.ts";
+} from "../db/schema.js";
 import { readFile, readdir } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import { db } from "../index.ts";
+import { db } from "../index.js";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
-import requireSignIn from "../middlewares/requireSignIn.ts";
+import requireSignIn from "../middlewares/requireSignIn.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -262,7 +262,10 @@ contestRouter.post("/submit", requireSignIn, async (req, res) => {
                 ),
             })),
         );
-
+        // testCases.forEach((tc, i) => {
+        //     console.log(`test case ${i+1} \n stdin: ${tc.stdin} \n expected_output: ${tc.expected_output}`)
+        // });
+        
         // Build one batch payload — same source code, different stdin per test case
         const batchPayload = {
             submissions: testCases.map((tc) => ({

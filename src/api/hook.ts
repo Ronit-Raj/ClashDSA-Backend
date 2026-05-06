@@ -1,8 +1,8 @@
 import express from "express";
 import { sql } from "drizzle-orm";
-import { db } from "../index.ts";
-import { submissionsTable } from "../db/schema.ts";
-import { io } from "../index.ts";
+import { db } from "../index.js";
+import { submissionsTable } from "../db/schema.js";
+import { io } from "../index.js";
 
 
 const hookRouter = express.Router();

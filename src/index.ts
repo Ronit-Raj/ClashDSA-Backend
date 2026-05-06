@@ -5,9 +5,9 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
-import usersRouter from "./api/users";
-import contestRouter from "./api/contest";
-import hookRouter from "./api/hook.ts";
+import usersRouter from "./api/users.js";
+import contestRouter from "./api/contest.js";
+import hookRouter from "./api/hook.js";
 import { Server } from "socket.io"
 import http from "http";
 
@@ -44,14 +44,14 @@ app.use("/v1/api/contest", contestRouter);
 app.use(express.static(path.join(__dirname, "..", "data", "problems")));
 
 const server = http.createServer(app);
-const options = {
-    cors: {
-        origin: FRONTEND_ORIGIN,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        credentials: true,
-    },
-}
-export const io = new Server(server, options)
+// const options = {
+//     cors: {
+//         origin: FRONTEND_ORIGIN,
+//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//         credentials: true,
+//     },
+// }
+export const io = new Server(server)
 io.on("connection", (socket) => {
     socket.on("joinRoom", (submissionId) => {
       // console.log(`Socket ${socket.id} joined room ${submissionId}`);

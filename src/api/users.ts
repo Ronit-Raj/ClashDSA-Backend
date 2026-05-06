@@ -1,12 +1,12 @@
 import express from "express";
-import { usersTable } from "../db/schema";
+import { usersTable } from "../db/schema.js";
 import jwt from "jsonwebtoken";
 import { randomUUID } from "crypto";
-import { db } from "../index.ts";
+import { db } from "../index.js";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-import requireSignIn from "../middlewares/requireSignIn.ts";
+import requireSignIn from "../middlewares/requireSignIn.js";
 import type { JwtPayload } from "jsonwebtoken";
 
 const usersRouter = express.Router();
@@ -85,7 +85,7 @@ usersRouter.post("/sign-in", async (req, res) => {
         },
         process.env.JWT_SECRET as string,
     );
-    res.cookie("token", token, { httpOnly: true, secure: false });
+    res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "none" });
     res.status(200).json({ message: "User signed in successfully" });
 });
 

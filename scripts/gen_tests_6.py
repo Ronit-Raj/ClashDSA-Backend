@@ -12,7 +12,7 @@ import string
 BASE_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
 TEST_DIR = os.path.join(BASE_DIR, "test")
 STDOUT_DIR = os.path.join(BASE_DIR, "stdout")
-PROBLEM_ID = 3
+PROBLEM_ID = 6
 
 
 def longest_substring_answer(s: str) -> int:

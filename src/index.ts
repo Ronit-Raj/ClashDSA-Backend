@@ -8,12 +8,12 @@ import cookieParser from "cookie-parser";
 import usersRouter from "./api/users.js";
 import contestRouter from "./api/contest.js";
 import hookRouter from "./api/hook.js";
-import { Server } from "socket.io"
+import { Server } from "socket.io";
 import http from "http";
 
 export const db = drizzle(process.env.DATABASE_URL!);
 if (!db) {
-    console.log("Failed to connect to database")
+    console.log("Failed to connect to database");
 }
 
 const __filename = fileURLToPath(import.meta.url);
@@ -44,18 +44,18 @@ app.use("/v1/api/contest", contestRouter);
 app.use(express.static(path.join(__dirname, "..", "data", "problems")));
 
 const server = http.createServer(app);
-// const options = {
-//     cors: {
-//         origin: FRONTEND_ORIGIN,
-//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//         credentials: true,
-//     },
-// }
-export const io = new Server(server)
+const options = {
+    cors: {
+        origin: FRONTEND_ORIGIN,
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        credentials: true,
+    },
+};
+export const io = new Server(server, options);
 io.on("connection", (socket) => {
     socket.on("joinRoom", (submissionId) => {
-      // console.log(`Socket ${socket.id} joined room ${submissionId}`);
-      socket.join(submissionId);
+        // console.log(`Socket ${socket.id} joined room ${submissionId}`);
+        socket.join(submissionId);
     });
 });
 server.listen(process.env.PORT ?? 3000, () => {
